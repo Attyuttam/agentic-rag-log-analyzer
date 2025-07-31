@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 langchain-google-genai = "*"
 langchain = "*"
+dotenv = "*"
+langchain-community = "*"
+langchain-pinecone = "*"
 
 [dev-packages]
 

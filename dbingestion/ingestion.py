@@ -11,7 +11,7 @@ from langchain_pinecone import PineconeVectorStore
 
 def ingest_docs():
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-    loader = TextLoader("/log.txt", encoding="utf-8")
+    loader = TextLoader("logs.txt", encoding="utf-8")
     raw_documents = loader.load()
     print(f"loaded {len(raw_documents)} documents")
 

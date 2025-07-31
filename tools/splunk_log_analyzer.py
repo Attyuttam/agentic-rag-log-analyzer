@@ -1,14 +1,10 @@
 # tools/analyze_logs.py
 from langchain_core.tools import tool
-from langchain_google_genai import ChatGoogleGenerativeAI
-
+from config.config import llm
 
 @tool
 def analyze_logs(log_data: str) -> str:
     """Analyze logs and summarize what is happening across microservices, highlighting key flows, anomalies, or issues."""
-
-    llm = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3)
-
     prompt = f"""
 You are an expert in analyzing distributed system logs. The logs follow this structure:
 
@@ -29,7 +25,7 @@ Logs:
 {log_data}
 ------------------
 
-Return a clear and concise explanation. If possible, mention the overall flow using the EVENT_IDs to correlate steps across services.
+Return a clear and concise explanation and do not provide irrelevant analysis if you do not find anything. Simply reply what you have found. If possible, mention the overall flow using the EVENT_IDs to correlate steps across services.
 """
 
     response = llm.invoke(prompt)

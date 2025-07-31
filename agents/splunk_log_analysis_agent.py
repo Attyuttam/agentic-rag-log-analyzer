@@ -5,7 +5,7 @@ from langchain.agents.agent import AgentExecutor
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import Runnable
 from langchain_core.tools import Tool
-from langchain_google_genai import ChatGoogleGenerativeAI
+from config.config import llm
 
 # Custom tool wrappers (to be implemented)
 from tools.splunk_query_generator import generate_splunk_query
@@ -13,9 +13,6 @@ from tools.splunk_query_executor import execute_splunk_query
 from tools.splunk_log_analyzer import analyze_logs
 
 def log_analysis(user_input:str) -> str:
-    # Step 1: Define the LLM
-    llm = ChatGoogleGenerativeAI(temperature=0)
-
     # Step 2: Define Tools
     tools: list[Tool] = [
         Tool.from_function(
@@ -46,3 +43,6 @@ def log_analysis(user_input:str) -> str:
     result = agent_executor.invoke({"input": user_input})
 
     return result["output"]
+
+if __name__ == "__main__":
+    log_analysis("What are the errors going on ?")
